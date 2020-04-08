@@ -1,7 +1,5 @@
 package com.twu.biblioteca;
 
-import com.twu.biblioteca.exceptions.IllegalBookCheckoutException;
-import com.twu.biblioteca.exceptions.IllegalBookReturnException;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,8 +1,5 @@
 package com.twu.biblioteca;
 
-import com.twu.biblioteca.exceptions.IllegalBookCheckoutException;
-import com.twu.biblioteca.exceptions.IllegalBookReturnException;
-
 import java.time.LocalDate;
 
 public class BookLoan {

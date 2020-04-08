@@ -1,8 +1,5 @@
 package com.twu.biblioteca;
 
-import com.twu.biblioteca.exceptions.IllegalBookCheckoutException;
-import com.twu.biblioteca.exceptions.IllegalBookReturnException;
-
 public class Book {
     private String bookTitle;
     private String authorName;
