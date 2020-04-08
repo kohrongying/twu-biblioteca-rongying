@@ -42,13 +42,13 @@ public class BookLoanTest {
     }
 
     @Test
-    public void shouldReturnTrueWhenLoanIsActive() {
-        assertThat(loan.isActive(), is(true));
+    public void shouldReturnTrueWhenLoanIsOutStanding() {
+        assertThat(loan.isOutstanding(), is(true));
     }
 
     @Test
     public void shouldReturnFalseWhenLoanIsFulfilled() {
         loan.returnBook();
-        assertThat(loan.isActive(), is(false));
+        assertThat(loan.isOutstanding(), is(false));
     }
 }

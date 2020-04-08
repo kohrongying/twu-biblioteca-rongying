@@ -35,7 +35,7 @@ public class BookLoan {
 
     }
 
-    public Boolean isActive() {
+    public Boolean isOutstanding() {
         if (this.dateReturned == null) {
             return true;
         }
