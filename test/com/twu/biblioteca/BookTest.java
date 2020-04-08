@@ -7,8 +7,8 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class BookTest {
-    Book book;
-    Book unavailableBook;
+    private Book book;
+    private Book unavailableBook;
 
     @Before
     public void setUp() {
@@ -47,24 +47,26 @@ public class BookTest {
     }
 
     @Test
-    public void shouldDecrementCopiesAvailableWhenCheckout() throws IllegalBookCheckoutException {
-        book.checkoutBook();
-        assertThat(book.getNumCopiesAvailable(), is(0));
-    }
-
-    @Test(expected = IllegalBookCheckoutException.class)
-    public void shouldThrowErrorWhenCheckoutBookThatHasNoAvailableCopies() throws IllegalBookCheckoutException {
-        unavailableBook.checkoutBook();
+    public void shouldDecrementCopiesAvailable() {
+        unavailableBook.decrementCopiesAvailable();
+        assertThat(unavailableBook.getNumCopiesAvailable(), is(0));
     }
 
     @Test
-    public void shouldIncrementCopiesAvailableWhenReturned() throws IllegalBookReturnException {
-        unavailableBook.returnBook();
+    public void shouldNotDecrementWhenNoCopiesAvailable() {
+        book.decrementCopiesAvailable();
+        assertThat(book.getNumCopiesAvailable(), is(0));
+    }
+
+    @Test
+    public void shouldIncrementCopiesAvailable() {
+        unavailableBook.incrementCopiesAvailable();
         assertThat(unavailableBook.getNumCopiesAvailable(), is(1));
     }
 
-    @Test(expected = IllegalBookReturnException.class)
-    public void shouldThrowErrorWhenReturningBookThatIsNotCheckOut() throws IllegalBookReturnException {
-        book.returnBook();
+    @Test
+    public void shouldNotIncrementWhenCopiesAvailableWillExceedTotal() {
+        book.incrementCopiesAvailable();
+        assertThat(book.getNumCopiesAvailable(), is(1));
     }
 }

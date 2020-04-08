@@ -34,28 +34,15 @@ public class Book {
         return this.yearPublished;
     }
 
-    public int getNumCopiesTotal() {
-        return this.numCopiesTotal;
-    }
-
     public int getNumCopiesAvailable() {
         return this.numCopiesAvailable;
     }
 
-    public void checkoutBook() throws IllegalBookCheckoutException {
-        if (this.numCopiesAvailable > 0) {
-            this.numCopiesAvailable -= 1;
-        } else {
-            throw new IllegalBookCheckoutException("Sorry, that book is not available");
-        }
+    public void decrementCopiesAvailable() {
+        this.numCopiesAvailable = Math.max(0, this.numCopiesAvailable - 1);
     }
 
-    public void returnBook() throws IllegalBookReturnException {
-        if (this.numCopiesAvailable + 1 > this.numCopiesTotal) {
-            throw new IllegalBookReturnException("That is not a valid book to return");
-        } else {
-            this.numCopiesAvailable += 1;
-        }
+    public void incrementCopiesAvailable() {
+        this.numCopiesAvailable = Math.min(this.numCopiesTotal, this.numCopiesAvailable + 1);
     }
-
 }
