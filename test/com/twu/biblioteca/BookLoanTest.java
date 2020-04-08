@@ -17,7 +17,7 @@ public class BookLoanTest {
     @Before
     public void setUp() {
         book = new Book("TDD for Dummies", "TWU", 2000, 1, 1);
-        loan = new BookLoan(LocalDate.now(), book);
+        loan = new BookLoan(book);
     }
 
     @Test

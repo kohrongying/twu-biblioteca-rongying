@@ -7,10 +7,10 @@ public class BookLoan {
     private LocalDate dateBorrowed;
     private LocalDate dateReturned;
 
-    public BookLoan(LocalDate dateBorrowed, Book bookLoaned) {
+    public BookLoan(Book bookLoaned) {
         try {
             bookLoaned.checkoutBook();
-            this.dateBorrowed = dateBorrowed;
+            this.dateBorrowed = LocalDate.now();
             this.book = bookLoaned;
         } catch (IllegalBookCheckoutException e) {
             System.out.println(e.getMessage());
