@@ -8,17 +8,9 @@ public class BookLoan {
     private LocalDate dateReturned;
 
     public BookLoan(Book bookLoaned) {
-        try {
-            bookLoaned.checkoutBook();
-            this.dateBorrowed = LocalDate.now();
-            this.book = bookLoaned;
-        } catch (IllegalBookCheckoutException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public Book getBook() {
-        return this.book;
+        this.book = bookLoaned;
+        this.book.decrementCopiesAvailable();
+        this.dateBorrowed = LocalDate.now();
     }
 
     public LocalDate getDateReturned() {
@@ -26,13 +18,8 @@ public class BookLoan {
     }
 
     public void returnBook() {
-        try {
-            this.book.returnBook();
-            this.dateReturned = LocalDate.now();
-        } catch (IllegalBookReturnException e) {
-            System.out.println(e.getMessage());
-        }
-
+        this.book.incrementCopiesAvailable();
+        this.dateReturned = LocalDate.now();
     }
 
     public Boolean isOutstanding() {

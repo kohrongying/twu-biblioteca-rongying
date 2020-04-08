@@ -2,17 +2,14 @@ package com.twu.biblioteca;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import static org.junit.Assert.assertThat;
-
-import java.time.LocalDate;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.core.Is.is;
 
 public class BookLoanTest {
-    Book book;
-    BookLoan loan;
+    private Book book;
+    private BookLoan loan;
 
     @Before
     public void setUp() {
@@ -21,12 +18,7 @@ public class BookLoanTest {
     }
 
     @Test
-    public void shouldGetBook() {
-        assertThat(loan.getBook(), is(book));
-    }
-
-    @Test
-    public void shouldCheckoutBookWhenNewLoanIsCreated() {
+    public void shouldDecrementBookCopiesWhenNewLoanIsCreated() {
         assertThat(book.getNumCopiesAvailable(), is(0));
     }
 
@@ -42,12 +34,18 @@ public class BookLoanTest {
     }
 
     @Test
-    public void shouldReturnTrueWhenLoanIsOutStanding() {
+    public void shouldIncrementBookCopiesWhenBookIsReturned() {
+        loan.returnBook();
+        assertThat(book.getNumCopiesAvailable(), is(1));
+    }
+
+    @Test
+    public void loanOutstandingShouldReturnTrueWhenLoanIsCreated() {
         assertThat(loan.isOutstanding(), is(true));
     }
 
     @Test
-    public void shouldReturnFalseWhenLoanIsFulfilled() {
+    public void loanOutstandingShouldReturnFalseWhenBookIsReturned() {
         loan.returnBook();
         assertThat(loan.isOutstanding(), is(false));
     }
