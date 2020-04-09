@@ -1,17 +1,18 @@
 package com.twu.biblioteca;
 
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.assertThat;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.core.Is.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 public class BookLoanTest {
     private Book book;
     private BookLoan loan;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         book = new Book("TDD for Dummies", "TWU", 2000, 1, 1);
         loan = new BookLoan(book);
@@ -19,34 +20,34 @@ public class BookLoanTest {
 
     @Test
     public void shouldDecrementBookCopiesWhenNewLoanIsCreated() {
-        assertThat(book.getNumCopiesAvailable(), is(0));
+        assertEquals(book.getNumCopiesAvailable(), 0);
     }
 
     @Test
     public void shouldGetNullDateReturnedWhenBookLoanIsCreated() {
-        assertThat(loan.getDateReturned(), is(nullValue()));
+        assertNull(loan.getDateReturned());
     }
 
     @Test
     public void shouldSetDateReturnedWhenBookIsReturned() {
         loan.returnBook();
-        assertThat(loan.getDateReturned(), is(not(nullValue())));
+        assertNotNull(loan.getDateReturned());
     }
 
     @Test
     public void shouldIncrementBookCopiesWhenBookIsReturned() {
         loan.returnBook();
-        assertThat(book.getNumCopiesAvailable(), is(1));
+        assertEquals(book.getNumCopiesAvailable(), 1);
     }
 
     @Test
     public void loanOutstandingShouldReturnTrueWhenLoanIsCreated() {
-        assertThat(loan.isOutstanding(), is(true));
+        assertEquals(loan.isOutstanding(), true);
     }
 
     @Test
     public void loanOutstandingShouldReturnFalseWhenBookIsReturned() {
         loan.returnBook();
-        assertThat(loan.isOutstanding(), is(false));
+        assertEquals(loan.isOutstanding(), false);
     }
 }

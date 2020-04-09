@@ -1,11 +1,12 @@
 package com.twu.biblioteca;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.Ignore;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
 
 public class LibraryTest {
     private Book book;
@@ -14,7 +15,7 @@ public class LibraryTest {
     private Book[] books;
     private Library library;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         book = new Book("TDD for Dummies", "TWU", 2000, 1, 1);
         book2 = new Book("The Agile Brown Fox Jumped Over the Waterfall", "Marty Howler", 2010, 1, 1);
@@ -25,36 +26,40 @@ public class LibraryTest {
 
     @Test
     public void shouldGetListOfAvailableBooks() {
-        assertThat(library.getAvailableBooks(), is(new Book[]{book, book2}));
+        assertArrayEquals(library.getAvailableBooks(), new Book[]{book, book2});
     }
 
     @Test
     public void shouldGetListOfOutstandingLoans() {
-        assertThat(library.getOutstandingLoans().length, is(0));
+        assertEquals(library.getOutstandingLoans().length, 0);
     }
 
     @Test
     public void shouldCreateBookLoanWhenCheckingOutBook() {
         BookLoan loan = library.checkoutBook(book);
-        assertThat(library.getOutstandingLoans(), is(new BookLoan[]{loan}));
+        assertArrayEquals(library.getOutstandingLoans(), new BookLoan[]{loan});
     }
 
-    @Test(expected = IllegalBookCheckoutException.class)
+    @Test
     public void shouldThrowErrorWhenCheckingOutUnavailableBook() {
-        library.checkoutBook(book3);
+        assertThrows(IllegalBookCheckoutException.class, () -> {
+            library.checkoutBook(book3);
+        });
     }
 
     @Test
     public void shouldRemoveBookFromOutstandingLoansAfterReturningBook() {
         BookLoan loan = library.checkoutBook(book);
         library.returnLoan(loan);
-        assertThat(library.getOutstandingLoans().length, is(0));
+        assertEquals(library.getOutstandingLoans().length, 0);
     }
 
-    @Test(expected = IllegalBookReturnException.class)
+    @Test
     public void shouldThrowErrorWhenReturningInvalidBook() {
-        BookLoan loan = library.checkoutBook(book);
-        library.returnLoan(loan);
-        library.returnLoan(loan);
+        assertThrows(IllegalBookReturnException.class, () -> {
+            BookLoan loan = library.checkoutBook(book);
+            library.returnLoan(loan);
+            library.returnLoan(loan);
+        });
     }
 }
