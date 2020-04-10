@@ -73,32 +73,77 @@ public class StateMachine {
     }
 
     public void getNextPrompt() {
+        StringBuilder strBuilder = new StringBuilder("");
+        Book[] availableBooks;
         switch (this.currentState) {
             case WELCOME:
-                System.out.println("\n"
+                strBuilder.append("\n"
                         + "====== MENU ======"
+                        + "\n"
                         + "1. List of Books"
-                        + "\n"
-                        + "What would you like to do today? Please input the number eg. 1. ");
+                        + "\n\n"
+                        + "What would you like to do today? Please input the number eg. 1 ");
+                break;
             case LIBRARY:
-                System.out.println("\n"
+                strBuilder.append("\n"
                         + "===== LIST OF BOOKS ====="
-                        + "//TODO"
-                        + "What would you like to do? Please input the number eg. 1. "
-                        + "\n"
-                        + "1. Checkout Book"
-                        + "2. Return Book");
+                        + "\n");
+                availableBooks = this.library.getAvailableBooks();
+                if (availableBooks.length > 0) {
+                    for (int i = 0; i < availableBooks.length; i += 1) {
+                        strBuilder.append(i + 1);
+                        strBuilder.append(". ");
+                        strBuilder.append(availableBooks[i].toString());
+                        strBuilder.append("\n");
+                    }
+                    strBuilder.append("\n"
+                            + "What would you like to do? Please input the number eg. 1 "
+                            + "\n"
+                            + "1. Checkout Book"
+                            + "\n"
+                            + "2. Return Book");
+                } else {
+                    strBuilder.append("There are no available books at the moment");
+                }
+                break;
             case BOOK_CHECKOUT:
-                System.out.println("\n"
+                strBuilder.append("\n"
                         + "===== AVAILABLE BOOKS TO CHECK OUT ====="
-                        + "//TODO"
-                        + "Please input the number of the book you would like to borrow eg. 1. ");
+                        + "\n");
+                availableBooks = this.library.getAvailableBooks();
+                if (availableBooks.length > 0) {
+                    for (int i = 0; i < availableBooks.length; i += 1) {
+                        strBuilder.append(i + 1);
+                        strBuilder.append(". ");
+                        strBuilder.append(availableBooks[i].toString());
+                        strBuilder.append("\n");
+                    }
+                    strBuilder.append("\n"
+                            + "Please input the number of the book you would like to borrow eg. 1 ");
+                } else {
+                    strBuilder.append("There are no available books at the moment");
+                }
+                break;
             case BOOK_RETURN:
-                System.out.println("\n"
+                strBuilder.append("\n"
                         + "===== OUTSTANDING LOANS ====="
-                        + "//TODO"
-                        + "Please input the number of the book you would like to return eg. 1. ");
+                        + "\n");
+                BookLoan[] loans = this.library.getOutstandingLoans();
+                if (loans.length > 0) {
+                    for (int i = 0; i < loans.length; i += 1) {
+                        strBuilder.append(i + 1);
+                        strBuilder.append(". ");
+                        strBuilder.append(loans[i].getBook().toString());
+                        strBuilder.append("\n");
+                    }
+                    strBuilder.append("\n"
+                            + "Please input the number of the book you would like to return eg. 1 ");
+                } else {
+                    strBuilder.append("There are no outstanding loans");
+                }
+                break;
         }
+        System.out.println(strBuilder);
     }
 
 }
