@@ -68,6 +68,12 @@ public class StateMachineTest {
             fsm.nextState(-99);
             assertEquals(StateMachine.State.LIBRARY, fsm.getCurrentState());
         }
+
+        @Test
+        void shouldMoveToWelcomeStateGivenInput0() {
+            fsm.nextState(0);
+            assertEquals(StateMachine.State.WELCOME, fsm.getCurrentState());
+        }
     }
 
     @Nested
@@ -90,7 +96,14 @@ public class StateMachineTest {
         }
 
         @Test
-        // End to end test
+        void shouldMoveToLibraryStateGivenInput0() {
+            //Input zero is to go back
+            fsm.nextState(0);
+            assertEquals(StateMachine.State.LIBRARY, fsm.getCurrentState());
+        }
+
+        @Test
+            // End to end test
         void shouldCreateBookLoanAfterSuccessfulCheckout() {
             Book[] books = fsm.getLibrary().getAvailableBooks();
             fsm.nextState(1);
@@ -120,6 +133,13 @@ public class StateMachineTest {
         void shouldStayAtBookReturnstateGivenUnsuccessfulReturn() {
             fsm.nextState(-99);
             assertEquals(StateMachine.State.BOOK_RETURN, fsm.getCurrentState());
+        }
+
+        @Test
+        void shouldMoveToLibraryStateGivenInput0() {
+            //Input zero is to go back
+            fsm.nextState(0);
+            assertEquals(StateMachine.State.LIBRARY, fsm.getCurrentState());
         }
     }
 }

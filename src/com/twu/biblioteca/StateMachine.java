@@ -40,12 +40,18 @@ public class StateMachine {
                     this.currentState = State.BOOK_CHECKOUT;
                 } else if (userInput == 2) {
                     this.currentState = State.BOOK_RETURN;
+                } else if (userInput == 0) {
+                    this.currentState = State.WELCOME;
                 } else {
                     System.out.println(Messages.INVALID_OPTION.getMessage());
                     this.currentState = State.LIBRARY;
                 }
                 break;
             case BOOK_CHECKOUT:
+                if (userInput == 0) {
+                    this.currentState = State.LIBRARY;
+                    break;
+                }
                 Book[] books = this.library.getAvailableBooks();
                 int bookIndex = userInput - 1;
                 if (bookIndex >= 0 && bookIndex < books.length) {
@@ -58,6 +64,10 @@ public class StateMachine {
                 }
                 break;
             case BOOK_RETURN:
+                if (userInput == 0) {
+                    this.currentState = State.LIBRARY;
+                    break;
+                }
                 BookLoan[] loans = this.library.getOutstandingLoans();
                 int loanIndex = userInput - 1;
                 if (loanIndex >= 0 && loanIndex < loans.length) {
@@ -75,19 +85,16 @@ public class StateMachine {
     public void getNextPrompt() {
         StringBuilder strBuilder = new StringBuilder("");
         Book[] availableBooks;
+
         switch (this.currentState) {
             case WELCOME:
                 strBuilder.append("\n"
-                        + "====== MENU ======"
-                        + "\n"
+                        + "====== MENU ======\n"
                         + "1. List of Books"
                         + "\n\n"
-                        + "What would you like to do today? Please input the number eg. 1 ");
+                        + "What would you like to do today?");
                 break;
             case LIBRARY:
-                strBuilder.append("\n"
-                        + "===== LIST OF BOOKS ====="
-                        + "\n");
                 availableBooks = this.library.getAvailableBooks();
                 if (availableBooks.length > 0) {
                     for (int i = 0; i < availableBooks.length; i += 1) {
@@ -96,15 +103,15 @@ public class StateMachine {
                         strBuilder.append(availableBooks[i].toString());
                         strBuilder.append("\n");
                     }
-                    strBuilder.append("\n"
-                            + "What would you like to do? Please input the number eg. 1 "
-                            + "\n"
-                            + "1. Checkout Book"
-                            + "\n"
-                            + "2. Return Book");
                 } else {
                     strBuilder.append("There are no available books at the moment");
                 }
+                strBuilder.append("\n"
+                        + "What would you like to do?\n"
+                        + "0 - GO BACK\n"
+                        + "1 - CHECKOUT BOOK\n"
+                        + "2 - RETURN BOOK");
+
                 break;
             case BOOK_CHECKOUT:
                 strBuilder.append("\n"
@@ -144,6 +151,6 @@ public class StateMachine {
                 break;
         }
         System.out.println(strBuilder);
+        System.out.print("\nPlease input option number: ");
     }
-
 }
