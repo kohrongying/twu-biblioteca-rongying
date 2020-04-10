@@ -26,18 +26,18 @@ public class LibraryTest {
 
     @Test
     public void shouldGetListOfAvailableBooks() {
-        assertArrayEquals(library.getAvailableBooks(), new Book[]{book, book2});
+        assertArrayEquals(new Book[]{book, book2}, library.getAvailableBooks());
     }
 
     @Test
     public void shouldGetListOfOutstandingLoans() {
-        assertEquals(library.getOutstandingLoans().length, 0);
+        assertEquals(0, library.getOutstandingLoans().length);
     }
 
     @Test
     public void shouldCreateBookLoanWhenCheckingOutBook() {
         BookLoan loan = library.checkoutBook(book);
-        assertArrayEquals(library.getOutstandingLoans(), new BookLoan[]{loan});
+        assertArrayEquals(new BookLoan[]{loan}, library.getOutstandingLoans());
     }
 
     @Test
@@ -51,7 +51,7 @@ public class LibraryTest {
     public void shouldRemoveBookFromOutstandingLoansAfterReturningBook() {
         BookLoan loan = library.checkoutBook(book);
         library.returnLoan(loan);
-        assertEquals(library.getOutstandingLoans().length, 0);
+        assertEquals(0, library.getOutstandingLoans().length);
     }
 
     @Test
