@@ -17,6 +17,10 @@ public class BookLoan {
         return this.dateReturned;
     }
 
+    public Book getBook() {
+        return this.book;
+    }
+
     public void returnBook() {
         this.book.incrementCopiesAvailable();
         this.dateReturned = LocalDate.now();

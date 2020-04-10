@@ -20,7 +20,7 @@ public class BookLoanTest {
 
     @Test
     public void shouldDecrementBookCopiesWhenNewLoanIsCreated() {
-        assertEquals(book.getNumCopiesAvailable(), 0);
+        assertEquals(0, book.getNumCopiesAvailable());
     }
 
     @Test
@@ -37,17 +37,22 @@ public class BookLoanTest {
     @Test
     public void shouldIncrementBookCopiesWhenBookIsReturned() {
         loan.returnBook();
-        assertEquals(book.getNumCopiesAvailable(), 1);
+        assertEquals(1, book.getNumCopiesAvailable());
     }
 
     @Test
     public void loanOutstandingShouldReturnTrueWhenLoanIsCreated() {
-        assertEquals(loan.isOutstanding(), true);
+        assertEquals(true, loan.isOutstanding());
     }
 
     @Test
     public void loanOutstandingShouldReturnFalseWhenBookIsReturned() {
         loan.returnBook();
-        assertEquals(loan.isOutstanding(), false);
+        assertEquals(false, loan.isOutstanding());
+    }
+
+    @Test
+    void shouldGetBook() {
+        assertEquals(book, loan.getBook());
     }
 }
