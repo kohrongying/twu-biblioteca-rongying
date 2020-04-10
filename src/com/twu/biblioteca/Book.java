@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+
 public class Book {
     private String bookTitle;
     private String authorName;
@@ -44,5 +45,15 @@ public class Book {
 
     public void incrementCopiesAvailable() {
         this.numCopiesAvailable = Math.min(this.numCopiesTotal, this.numCopiesAvailable + 1);
+    }
+
+    @Override
+    public String toString() {
+        String status = this.isAvailable() ? "Available" : "On Loan";
+        return String.format("%-" + 50 + "s", this.bookTitle)
+                + String.format("%-" + 20 + "s", this.authorName)
+                + String.format("%-" + 9 + "s", this.yearPublished)
+                + status;
+
     }
 }

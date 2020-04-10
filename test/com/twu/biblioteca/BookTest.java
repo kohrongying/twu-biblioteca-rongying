@@ -68,4 +68,9 @@ public class BookTest {
         book.incrementCopiesAvailable();
         assertEquals(1, book.getNumCopiesAvailable());
     }
+
+    @Test
+    void shouldGetBookInformationWhenToStringInvoked() {
+        assertEquals("TDD for Dummies                                   TWU                 2000     Available", book.toString());
+    }
 }
