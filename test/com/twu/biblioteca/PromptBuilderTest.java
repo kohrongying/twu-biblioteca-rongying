@@ -49,7 +49,7 @@ public class PromptBuilderTest {
     @Test
     void shouldReturnEmptyWhenBookListIsEmpty() {
         pbuilder.setBooks(new Book[]{});
-        assertEquals("There are none at the moment", pbuilder.buildBooks());
+        assertEquals("There are none at the moment\n", pbuilder.buildBooks());
     }
 
     @Test
