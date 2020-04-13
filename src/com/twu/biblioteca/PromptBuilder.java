@@ -21,7 +21,7 @@ public class PromptBuilder {
         }
 
         if (this.actionMenu != null) {
-            strBuilder.append("\n\nWhat would you like to do?\n");
+            strBuilder.append("\n===== What would you like to do? =====\n");
             strBuilder.append(this.buildActionMenu());
         }
 
@@ -72,7 +72,7 @@ public class PromptBuilder {
                         + "\n";
             }
         } else {
-            bookList += "There are none at the moment";
+            bookList += "There are none at the moment\n";
         }
         return bookList;
     }

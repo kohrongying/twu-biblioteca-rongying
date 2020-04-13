@@ -1,4 +1,5 @@
 package com.twu.biblioteca;
+import java.util.Arrays;
 
 public class StateMachine {
     private Library library;
@@ -85,72 +86,45 @@ public class StateMachine {
     public void getNextPrompt() {
         StringBuilder strBuilder = new StringBuilder("");
         Book[] availableBooks;
+        PromptBuilder pbuilder;
 
         switch (this.currentState) {
             case WELCOME:
-                strBuilder.append("\n"
-                        + "====== MENU ======\n"
-                        + "1. List of Books"
-                        + "\n\n"
-                        + "What would you like to do today?");
+                pbuilder = new PromptBuilder("Menu");
+                pbuilder.setMenu(new String[]{"1. List Of Books"});
+                pbuilder.setActionMenu(new String[]{"Please input the menu option number"});
                 break;
             case LIBRARY:
-                availableBooks = this.library.getAvailableBooks();
-                if (availableBooks.length > 0) {
-                    for (int i = 0; i < availableBooks.length; i += 1) {
-                        strBuilder.append(i + 1);
-                        strBuilder.append(". ");
-                        strBuilder.append(availableBooks[i].toString());
-                        strBuilder.append("\n");
-                    }
-                } else {
-                    strBuilder.append("There are no available books at the moment");
-                }
-                strBuilder.append("\n"
-                        + "What would you like to do?\n"
-                        + "0 - GO BACK\n"
-                        + "1 - CHECKOUT BOOK\n"
-                        + "2 - RETURN BOOK");
-
+                pbuilder = new PromptBuilder("List of Books");
+                pbuilder.setBooks(this.library.getAvailableBooks());
+                pbuilder.setActionMenu(new String[]{
+                        "0 - GO BACK",
+                        "1 - CHECKOUT BOOK",
+                        "2 - RETURN BOOK"
+                });
                 break;
             case BOOK_CHECKOUT:
-                strBuilder.append("\n"
-                        + "===== AVAILABLE BOOKS TO CHECK OUT ====="
-                        + "\n");
-                availableBooks = this.library.getAvailableBooks();
-                if (availableBooks.length > 0) {
-                    for (int i = 0; i < availableBooks.length; i += 1) {
-                        strBuilder.append(i + 1);
-                        strBuilder.append(". ");
-                        strBuilder.append(availableBooks[i].toString());
-                        strBuilder.append("\n");
-                    }
-                    strBuilder.append("\n"
-                            + "Please input the number of the book you would like to borrow eg. 1 ");
-                } else {
-                    strBuilder.append("There are no available books at the moment");
-                }
+                pbuilder = new PromptBuilder("Available books to check out");
+                pbuilder.setBooks(this.library.getAvailableBooks());
+                pbuilder.setActionMenu(new String[]{
+                        "0 - GO BACK",
+                        "Please input the number of the book you would like to borrow eg. 1"
+                });
                 break;
             case BOOK_RETURN:
-                strBuilder.append("\n"
-                        + "===== OUTSTANDING LOANS ====="
-                        + "\n");
+                pbuilder = new PromptBuilder("Outstanding Loans");
                 BookLoan[] loans = this.library.getOutstandingLoans();
-                if (loans.length > 0) {
-                    for (int i = 0; i < loans.length; i += 1) {
-                        strBuilder.append(i + 1);
-                        strBuilder.append(". ");
-                        strBuilder.append(loans[i].getBook().toString());
-                        strBuilder.append("\n");
-                    }
-                    strBuilder.append("\n"
-                            + "Please input the number of the book you would like to return eg. 1 ");
-                } else {
-                    strBuilder.append("There are no outstanding loans");
-                }
+                Book[] booksOnLoan = Arrays.stream(loans)
+                        .map(loan -> loan.getBook()).toArray(Book[]::new);
+                pbuilder.setBooks(booksOnLoan);
+                pbuilder.setActionMenu(new String[]{
+                        "0 - GO BACK",
+                        "Please input the number of the book you would like to return eg. 1"
+                });
                 break;
+            default:
+                pbuilder = new PromptBuilder("Goodbye");
         }
-        System.out.println(strBuilder);
-        System.out.print("\nPlease input option number: ");
+        System.out.println(pbuilder.toString());
     }
 }
