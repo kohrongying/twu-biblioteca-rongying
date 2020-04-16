@@ -38,6 +38,6 @@ public class BibliotecaApp {
 
 
         scanner.close();
-        System.out.println("Thank you for using Biblioteca! Have a nice day!");
+        System.out.println(Messages.QUIT.getMessage());
     }
 }
