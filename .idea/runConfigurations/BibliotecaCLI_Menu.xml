@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="BibliotecaCLI Menu" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.twu.biblioteca.BibliotecaCLI" />
+    <module name="biblioteca" />
+    <option name="PROGRAM_PARAMETERS" value="-m" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.twu.biblioteca.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
