@@ -62,4 +62,9 @@ public class LibraryTest {
             library.returnLoan(loan);
         });
     }
+
+    @Test
+    void shouldReturnBookGivenBookTitle() {
+        assertEquals(book, library.getAvailableBook("TDD for Dummies"));
+    }
 }

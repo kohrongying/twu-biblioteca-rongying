@@ -45,4 +45,14 @@ public class Library {
             throw new IllegalBookReturnException(Messages.BOOK_RETURN_FAIL.getMessage());
         }
     }
+
+    public Book getAvailableBook(String bookTitle) {
+        Book[] books = getAvailableBooks();
+        for (Book book : books) {
+            if (book.getBookTitle().equals(bookTitle)) {
+                return book;
+            }
+        }
+        return null;
+    }
 }
