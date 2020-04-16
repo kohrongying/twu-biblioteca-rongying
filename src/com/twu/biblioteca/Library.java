@@ -1,10 +1,11 @@
 package com.twu.biblioteca;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Library {
+public class Library implements Serializable {
     private Book[] books;
     private List<BookLoan> loans = new ArrayList<BookLoan>();
 

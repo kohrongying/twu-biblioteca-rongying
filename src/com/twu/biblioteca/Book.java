@@ -1,7 +1,8 @@
 package com.twu.biblioteca;
 
+import java.io.Serializable;
 
-public class Book {
+public class Book implements Serializable {
     private String bookTitle;
     private String authorName;
     private int yearPublished;

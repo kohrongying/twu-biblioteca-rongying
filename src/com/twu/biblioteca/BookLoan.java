@@ -1,8 +1,9 @@
 package com.twu.biblioteca;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class BookLoan {
+public class BookLoan implements Serializable {
     private Book book;
     private LocalDate dateBorrowed;
     private LocalDate dateReturned;
