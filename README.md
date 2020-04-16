@@ -5,32 +5,26 @@
 - Jdk version 1.8
 
 ## Release 1
-A CLI that responds based on parameters given.
+A CLI that responds based on parameters given. The CLI creates a txt file that serializes the Library class.
 
 ### How to Run CLI
-1. Use jar file
+1. Use jar file in root of folder
 `java -jar biblioteca.jar <args>`
 
-2. Run with Parameters
-Under Run, click on `Edit Configuration`
+2. Run Configurations
+Under Run, click on `Edit Configurations` and choose scenario to run in
 
 
 ### CLI Usage
-| Command | Alias | Description |
+| Command | Example | Description |
 |---|---|---|
-| `--help` | `-h` | Welcome and Help Page |
-| ` --menu` | `-m` | Shows list of menu options |
-| ` --list-books` | `-l` | Shows list of available books |
-| ` --checkout-book <bookTitle>` | `-cb` | Checkout a book |
-| ` --return-book <bookTitle>` | `-rb` | Return a book |
-| ` --quit` | `-q` | Quit application |
+| `-h` | `-h` | Welcome and Help Page |
+|  `-m` | `-m` | Shows list of menu options |
+|  `-m <menuOptNumber>` | `-m 1` | Shows Menu Item 1: list of available books |
+| `-cb <bookTitle>` | `-cb "TDD for Dummies"` | Checkout a book |
+| ` -rb <bookTitle>` | `-rb "TDD for Dummies"` | Return a book |
+| `-q` | `-q` | Quit application |
 
 
 ## Release 2
 A console application run in the terminal that responds given user input. The program will show a menu, a list of available books and outstanding loans and display actions accordingly. Press q or quit at any point to exit.
-
-### How to Run
-- Run `BibliotecaApp.main()`
-
-#### How to Terminate
-- Type `q` or `quit`

@@ -94,8 +94,6 @@ public class BibliotecaCLI {
             System.out.println("ERR: File not found");
         } catch (IOException e) {
             System.out.println("ERR: Error initializing stream");
-        } catch (ClassNotFoundException e) {
-            System.out.println("ERR: Something went wrong");
         } catch (MissingArgumentException e) {
             System.out.println("ERR: Please include an argument");
         } catch (ParseException e) {
@@ -111,12 +109,18 @@ public class BibliotecaCLI {
         f.close();
     }
 
-    public static void readObject() throws IOException, ClassNotFoundException {
-        FileInputStream fi = new FileInputStream(new File("library.txt"));
-        ObjectInputStream oi = new ObjectInputStream(fi);
-        library = (Library) oi.readObject();
-        oi.close();
-        fi.close();
+    public static void readObject() throws IOException {
+        try {
+            FileInputStream fi = new FileInputStream(new File("library.txt"));
+            ObjectInputStream oi = new ObjectInputStream(fi);
+            library = (Library) oi.readObject();
+            oi.close();
+            fi.close();
+        } catch (FileNotFoundException e) {
+            initializeObject();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void initializeObject() throws IOException {
