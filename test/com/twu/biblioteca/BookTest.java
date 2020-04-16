@@ -36,7 +36,7 @@ public class BookTest {
     }
 
     @Test
-    public void shouldGetYearPubled() {
+    public void shouldGetYearPublished() {
         assertEquals(2000, book.getYearPublished());
     }
 
@@ -47,14 +47,14 @@ public class BookTest {
 
     @Test
     public void shouldDecrementCopiesAvailable() {
-        unavailableBook.decrementCopiesAvailable();
-        assertEquals(0, unavailableBook.getNumCopiesAvailable());
+        book.decrementCopiesAvailable();
+        assertEquals(0, book.getNumCopiesAvailable());
     }
 
     @Test
     public void shouldNotDecrementWhenNoCopiesAvailable() {
-        book.decrementCopiesAvailable();
-        assertEquals(0, book.getNumCopiesAvailable());
+        unavailableBook.decrementCopiesAvailable();
+        assertEquals(0, unavailableBook.getNumCopiesAvailable());
     }
 
     @Test
