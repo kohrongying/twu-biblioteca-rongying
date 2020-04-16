@@ -46,11 +46,21 @@ public class Library {
         }
     }
 
-    public Book getAvailableBook(String bookTitle) {
+    public Book getAvailableBookByTitle(String bookTitle) {
         Book[] books = getAvailableBooks();
         for (Book book : books) {
             if (book.getBookTitle().equals(bookTitle)) {
                 return book;
+            }
+        }
+        return null;
+    }
+
+    public BookLoan getOutstandingLoanByBookTitle(String bookTitle) {
+        for (int i = 0; i < loans.size(); i += 1) {
+            BookLoan loan = loans.get(i);
+            if (loan.getBook().getBookTitle().equals(bookTitle)) {
+                return loan;
             }
         }
         return null;

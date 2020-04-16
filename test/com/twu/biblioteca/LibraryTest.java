@@ -3,10 +3,7 @@ package com.twu.biblioteca;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-
+import static org.junit.jupiter.api.Assertions.*;
 
 public class LibraryTest {
     private Book book;
@@ -65,6 +62,22 @@ public class LibraryTest {
 
     @Test
     void shouldReturnBookGivenBookTitle() {
-        assertEquals(book, library.getAvailableBook("TDD for Dummies"));
+        assertEquals(book, library.getAvailableBookByTitle("TDD for Dummies"));
+    }
+
+    @Test
+    void shouldReturnNullBookGivenInvalidBookTitle() {
+        assertNull(library.getAvailableBookByTitle("TDD for Smarties"));
+    }
+
+    @Test
+    void shouldReturnLoanGivenBookTitle() {
+        BookLoan loan = library.checkoutBook(book);
+        assertEquals(loan, library.getOutstandingLoanByBookTitle("TDD for Dummies"));
+    }
+
+    @Test
+    void shouldReturnNullLoanGivenInvalidBookTitle() {
+        assertNull(library.getOutstandingLoanByBookTitle("TDD for Dummies"));
     }
 }
