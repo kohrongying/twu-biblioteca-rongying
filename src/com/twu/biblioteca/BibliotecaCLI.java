@@ -124,10 +124,7 @@ public class BibliotecaCLI {
     }
 
     public static void initializeObject() throws IOException {
-        Book book = new Book("TDD for Dummies", "TWU", 2000, 1, 1);
-        Book book2 = new Book("The Agile Brown Fox Jumped Over the Waterfall", "Marty Howler", 2010, 1, 1);
-        Book book3 = new Book("Pear Programming", "Fruity Peeler", 2012, 1, 1);
-        library = new Library(new Book[]{book, book2, book3});
+        library = Factory.createBookLibrary();
         writeObject();
     }
 }

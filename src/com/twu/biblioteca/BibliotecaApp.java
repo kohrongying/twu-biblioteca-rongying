@@ -3,18 +3,10 @@ package com.twu.biblioteca;
 import java.util.Scanner;
 
 public class BibliotecaApp {
-    private static String state = "WELCOME";
-
-    private static Library initialiseLibrary() {
-        Book book = new Book("TDD for Dummies", "TWU", 2000, 1, 1);
-        Book book2 = new Book("The Agile Brown Fox Jumped Over the Waterfall", "Marty Howler", 2010, 1, 1);
-        Book book3 = new Book("Pear Programming", "Fruity Peeler", 2012, 1, 1);
-        return new Library(new Book[]{book, book2, book3});
-    }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Library library = initialiseLibrary();
+        Library library = Factory.createBookLibrary();
         StateMachine fsm = new StateMachine(library);
 
         System.out.println(Messages.WELCOME.getMessage());
