@@ -33,7 +33,7 @@ public class Library implements Serializable {
             return loan;
         } else {
             System.out.println(Messages.BOOK_CHECKOUT_FAIL.getMessage());
-            throw new IllegalBookCheckoutException(Messages.BOOK_CHECKOUT_FAIL.getMessage());
+            throw new IllegalResourceCheckoutException();
         }
     }
 
@@ -43,7 +43,7 @@ public class Library implements Serializable {
             System.out.println(Messages.BOOK_RETURN_SUCCESS.getMessage());
         } else {
             System.out.println(Messages.BOOK_RETURN_FAIL.getMessage());
-            throw new IllegalBookReturnException(Messages.BOOK_RETURN_FAIL.getMessage());
+            throw new IllegalResourceReturnException();
         }
     }
 
