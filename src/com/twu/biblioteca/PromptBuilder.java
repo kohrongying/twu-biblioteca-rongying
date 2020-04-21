@@ -1,10 +1,8 @@
 package com.twu.biblioteca;
 
-import java.util.Arrays;
-
 public class PromptBuilder {
     private String header;
-    private Book[] books;
+    private Loanable[] resources;
     private String[] actionMenu;
     private String[] menu;
 
@@ -16,8 +14,8 @@ public class PromptBuilder {
             strBuilder.append(this.buildMenu());
         }
 
-        if (this.books != null) {
-            strBuilder.append(this.buildBooks());
+        if (this.resources != null) {
+            strBuilder.append(this.buildResources());
         }
 
         if (this.actionMenu != null) {
@@ -54,21 +52,21 @@ public class PromptBuilder {
         return menuOptions;
     }
 
-    public Book[] getBooks() {
-        return books;
+    public Loanable[] getResources() {
+        return resources;
     }
 
-    public void setBooks(Book[] books) {
-        this.books = books;
+    public void setResources(Loanable[] resources) {
+        this.resources = resources;
     }
 
-    public String buildBooks() {
+    public String buildResources() {
         String bookList = "";
-        if (this.books.length > 0) {
-            for (int i = 0; i < this.books.length; i += 1) {
+        if (this.resources.length > 0) {
+            for (int i = 0; i < this.resources.length; i += 1) {
                 bookList += (i + 1)
                         + " - "
-                        + this.books[i].toString()
+                        + this.resources[i].toString()
                         + "\n";
             }
         } else {

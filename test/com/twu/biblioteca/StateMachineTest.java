@@ -1,7 +1,6 @@
 package com.twu.biblioteca;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -105,11 +104,11 @@ public class StateMachineTest {
         @Test
             // End to end test
         void shouldCreateBookLoanAfterSuccessfulCheckout() {
-            Book[] books = fsm.getLibrary().getAvailableBooks();
+            Loanable[] books = fsm.getLibrary().getAvailableResources();
             fsm.nextState(1);
-            BookLoan[] loans = fsm.getLibrary().getOutstandingLoans();
+            Loan[] loans = fsm.getLibrary().getOutstandingLoans();
             assertEquals(1, loans.length);
-            assertEquals(books[0], loans[0].getBook());
+            assertEquals(books[0], loans[0].getResource());
         }
     }
 

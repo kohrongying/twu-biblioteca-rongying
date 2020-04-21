@@ -16,7 +16,7 @@ public class PromptBuilderTest {
         pbuilder = new PromptBuilder("List of Books");
         pbuilder.setMenu(menu);
         book = new Book("TDD for Dummies", "TWU", 2000, 1, 1);
-        pbuilder.setBooks(new Book[]{book});
+        pbuilder.setResources(new Book[]{book});
         pbuilder.setActionMenu(actionMenu);
     }
 
@@ -37,19 +37,19 @@ public class PromptBuilderTest {
 
     @Test
     void shouldSetAndGetBooks() {
-        assertArrayEquals(new Book[]{book}, pbuilder.getBooks());
+        assertArrayEquals(new Book[]{book}, pbuilder.getResources());
     }
 
     @Test
     void shouldBuildBooks() {
         assertEquals("1 - TDD for Dummies                                   TWU                 2000     Available\n"
-                , pbuilder.buildBooks());
+                , pbuilder.buildResources());
     }
 
     @Test
     void shouldReturnEmptyWhenBookListIsEmpty() {
-        pbuilder.setBooks(new Book[]{});
-        assertEquals("There are none at the moment\n", pbuilder.buildBooks());
+        pbuilder.setResources(new Book[]{});
+        assertEquals("There are none at the moment\n", pbuilder.buildResources());
     }
 
     @Test

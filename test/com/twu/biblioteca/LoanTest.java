@@ -8,14 +8,14 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
-public class BookLoanTest {
+public class LoanTest {
     private Book book;
-    private BookLoan loan;
+    private Loan loan;
 
     @BeforeEach
     public void setUp() {
         book = new Book("TDD for Dummies", "TWU", 2000, 1, 1);
-        loan = new BookLoan(book);
+        loan = new Loan(book);
     }
 
     @Test
@@ -30,13 +30,13 @@ public class BookLoanTest {
 
     @Test
     public void shouldSetDateReturnedWhenBookIsReturned() {
-        loan.returnBook();
+        loan.returnResource();
         assertNotNull(loan.getDateReturned());
     }
 
     @Test
     public void shouldIncrementBookCopiesWhenBookIsReturned() {
-        loan.returnBook();
+        loan.returnResource();
         assertEquals(1, book.getNumCopiesAvailable());
     }
 
@@ -47,12 +47,12 @@ public class BookLoanTest {
 
     @Test
     public void loanOutstandingShouldReturnFalseWhenBookIsReturned() {
-        loan.returnBook();
+        loan.returnResource();
         assertEquals(false, loan.isOutstanding());
     }
 
     @Test
     void shouldGetBook() {
-        assertEquals(book, loan.getBook());
+        assertEquals(book, loan.getResource());
     }
 }

@@ -3,14 +3,14 @@ package com.twu.biblioteca;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class BookLoan implements Serializable {
-    private Book book;
+public class Loan implements Serializable {
+    private Loanable resource;
     private LocalDate dateBorrowed;
     private LocalDate dateReturned;
 
-    public BookLoan(Book bookLoaned) {
-        this.book = bookLoaned;
-        this.book.decrementCopiesAvailable();
+    public Loan(Loanable resourceLoaned) {
+        this.resource = resourceLoaned;
+        this.resource.decrementCopiesAvailable();
         this.dateBorrowed = LocalDate.now();
     }
 
@@ -18,12 +18,12 @@ public class BookLoan implements Serializable {
         return this.dateReturned;
     }
 
-    public Book getBook() {
-        return this.book;
+    public Loanable getResource() {
+        return this.resource;
     }
 
-    public void returnBook() {
-        this.book.incrementCopiesAvailable();
+    public void returnResource() {
+        this.resource.incrementCopiesAvailable();
         this.dateReturned = LocalDate.now();
     }
 

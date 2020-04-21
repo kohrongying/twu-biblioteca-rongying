@@ -6,28 +6,28 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Library implements Serializable {
-    private Book[] books;
-    private List<BookLoan> loans = new ArrayList<BookLoan>();
+    private Loanable[] resources;
+    private List<Loan> loans = new ArrayList<Loan>();
 
-    public Library(Book[] books) {
-        this.books = books;
+    public Library(Loanable[] resources) {
+        this.resources = resources;
     }
 
-    public Book[] getAvailableBooks() {
-        return Arrays.stream(this.books)
+    public Loanable[] getAvailableResources() {
+        return Arrays.stream(this.resources)
                 .filter(s -> s.isAvailable())
-                .toArray(Book[]::new);
+                .toArray(Loanable[]::new);
     }
 
-    public BookLoan[] getOutstandingLoans() {
+    public Loan[] getOutstandingLoans() {
         return this.loans.stream()
                 .filter(loan -> loan.isOutstanding())
-                .toArray(BookLoan[]::new);
+                .toArray(Loan[]::new);
     }
 
-    public BookLoan checkoutBook(Book book) {
-        if (book.isAvailable()) {
-            BookLoan loan = new BookLoan(book);
+    public Loan checkoutResource(Loanable resource) {
+        if (resource.isAvailable()) {
+            Loan loan = new Loan(resource);
             this.loans.add(loan);
             System.out.println(Messages.BOOK_CHECKOUT_SUCCESS.getMessage());
             return loan;
@@ -37,9 +37,9 @@ public class Library implements Serializable {
         }
     }
 
-    public void returnLoan(BookLoan loan) {
+    public void returnLoan(Loan loan) {
         if (loan.isOutstanding()) {
-            loan.returnBook();
+            loan.returnResource();
             System.out.println(Messages.BOOK_RETURN_SUCCESS.getMessage());
         } else {
             System.out.println(Messages.BOOK_RETURN_FAIL.getMessage());
@@ -47,20 +47,20 @@ public class Library implements Serializable {
         }
     }
 
-    public Book getAvailableBookByTitle(String bookTitle) {
-        Book[] books = getAvailableBooks();
-        for (Book book : books) {
-            if (book.getBookTitle().equals(bookTitle)) {
-                return book;
+    public Loanable getAvailableResourceByTitle(String title) {
+        Loanable[] resources = getAvailableResources();
+        for (Loanable res : resources) {
+            if (res.getTitle().equals(title)) {
+                return res;
             }
         }
         return null;
     }
 
-    public BookLoan getOutstandingLoanByBookTitle(String bookTitle) {
+    public Loan getOutstandingLoanByTitle(String title) {
         for (int i = 0; i < loans.size(); i += 1) {
-            BookLoan loan = loans.get(i);
-            if (loan.getBook().getBookTitle().equals(bookTitle)) {
+            Loan loan = loans.get(i);
+            if (loan.getResource().getTitle().equals(title)) {
                 return loan;
             }
         }

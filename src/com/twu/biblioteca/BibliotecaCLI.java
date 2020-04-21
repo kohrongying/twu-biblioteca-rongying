@@ -44,8 +44,8 @@ public class BibliotecaCLI {
                 if (arg == null) {
                     System.out.println("1. List of Books");
                 } else if (arg.equals("1")) {
-                    Book[] books = library.getAvailableBooks();
-                    for (Book b : books) {
+                    Loanable[] books = library.getAvailableResources();
+                    for (Loanable b : books) {
                         System.out.println(b.toString());
                     }
                 } else {
@@ -55,9 +55,9 @@ public class BibliotecaCLI {
             // Checkout book
             else if (cmd.hasOption("cb")) {
                 String bookTitle = cmd.getOptionValue("cb");
-                Book book = library.getAvailableBookByTitle(bookTitle);
+                Loanable book = library.getAvailableResourceByTitle(bookTitle);
                 if (book != null) {
-                    library.checkoutBook(book);
+                    library.checkoutResource(book);
                     writeObject();
                 } else {
                     System.out.println(Messages.BOOK_CHECKOUT_FAIL.getMessage());
@@ -66,7 +66,7 @@ public class BibliotecaCLI {
             // Return book
             else if (cmd.hasOption("rb")) {
                 String bookTitle = cmd.getOptionValue("rb");
-                BookLoan loan = library.getOutstandingLoanByBookTitle(bookTitle);
+                Loan loan = library.getOutstandingLoanByTitle(bookTitle);
                 if (loan != null) {
                     library.returnLoan(loan);
                     writeObject();

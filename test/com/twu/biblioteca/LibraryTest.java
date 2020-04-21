@@ -23,7 +23,7 @@ public class LibraryTest {
 
     @Test
     public void shouldGetListOfAvailableBooks() {
-        assertArrayEquals(new Book[]{book, book2}, library.getAvailableBooks());
+        assertArrayEquals(new Book[]{book, book2}, library.getAvailableResources());
     }
 
     @Test
@@ -33,28 +33,28 @@ public class LibraryTest {
 
     @Test
     public void shouldCreateBookLoanWhenCheckingOutBook() {
-        BookLoan loan = library.checkoutBook(book);
-        assertArrayEquals(new BookLoan[]{loan}, library.getOutstandingLoans());
+        Loan loan = library.checkoutResource(book);
+        assertArrayEquals(new Loan[]{loan}, library.getOutstandingLoans());
     }
 
     @Test
     public void shouldThrowErrorWhenCheckingOutUnavailableBook() {
-        assertThrows(IllegalBookCheckoutException.class, () -> {
-            library.checkoutBook(book3);
+        assertThrows(IllegalResourceCheckoutException.class, () -> {
+            library.checkoutResource(book3);
         });
     }
 
     @Test
     public void shouldRemoveBookFromOutstandingLoansAfterReturningBook() {
-        BookLoan loan = library.checkoutBook(book);
+        Loan loan = library.checkoutResource(book);
         library.returnLoan(loan);
         assertEquals(0, library.getOutstandingLoans().length);
     }
 
     @Test
     public void shouldThrowErrorWhenReturningInvalidBook() {
-        assertThrows(IllegalBookReturnException.class, () -> {
-            BookLoan loan = library.checkoutBook(book);
+        assertThrows(IllegalResourceReturnException.class, () -> {
+            Loan loan = library.checkoutResource(book);
             library.returnLoan(loan);
             library.returnLoan(loan);
         });
@@ -62,22 +62,22 @@ public class LibraryTest {
 
     @Test
     void shouldReturnBookGivenBookTitle() {
-        assertEquals(book, library.getAvailableBookByTitle("TDD for Dummies"));
+        assertEquals(book, library.getAvailableResourceByTitle("TDD for Dummies"));
     }
 
     @Test
     void shouldReturnNullBookGivenInvalidBookTitle() {
-        assertNull(library.getAvailableBookByTitle("TDD for Smarties"));
+        assertNull(library.getAvailableResourceByTitle("TDD for Smarties"));
     }
 
     @Test
     void shouldReturnLoanGivenBookTitle() {
-        BookLoan loan = library.checkoutBook(book);
-        assertEquals(loan, library.getOutstandingLoanByBookTitle("TDD for Dummies"));
+        Loan loan = library.checkoutResource(book);
+        assertEquals(loan, library.getOutstandingLoanByTitle("TDD for Dummies"));
     }
 
     @Test
     void shouldReturnNullLoanGivenInvalidBookTitle() {
-        assertNull(library.getOutstandingLoanByBookTitle("TDD for Dummies"));
+        assertNull(library.getOutstandingLoanByTitle("TDD for Dummies"));
     }
 }

@@ -53,11 +53,11 @@ public class StateMachine {
                     this.currentState = State.LIBRARY;
                     break;
                 }
-                Book[] books = this.library.getAvailableBooks();
+                Loanable[] books = this.library.getAvailableResources();
                 int bookIndex = userInput - 1;
                 if (bookIndex >= 0 && bookIndex < books.length) {
-                    Book book = books[bookIndex];
-                    this.library.checkoutBook(book);
+                    Loanable book = books[bookIndex];
+                    this.library.checkoutResource(book);
                     this.currentState = State.LIBRARY;
                 } else {
                     System.out.println(Messages.BOOK_CHECKOUT_FAIL.getMessage());
@@ -69,10 +69,10 @@ public class StateMachine {
                     this.currentState = State.LIBRARY;
                     break;
                 }
-                BookLoan[] loans = this.library.getOutstandingLoans();
+                Loan[] loans = this.library.getOutstandingLoans();
                 int loanIndex = userInput - 1;
                 if (loanIndex >= 0 && loanIndex < loans.length) {
-                    BookLoan loan = loans[loanIndex];
+                    Loan loan = loans[loanIndex];
                     this.library.returnLoan(loan);
                     this.currentState = State.LIBRARY;
                 } else {
@@ -96,7 +96,7 @@ public class StateMachine {
                 break;
             case LIBRARY:
                 pbuilder = new PromptBuilder("List of Books");
-                pbuilder.setBooks(this.library.getAvailableBooks());
+                pbuilder.setResources(this.library.getAvailableResources());
                 pbuilder.setActionMenu(new String[]{
                         "0 - GO BACK",
                         "1 - CHECKOUT BOOK",
@@ -105,7 +105,7 @@ public class StateMachine {
                 break;
             case BOOK_CHECKOUT:
                 pbuilder = new PromptBuilder("Available books to check out");
-                pbuilder.setBooks(this.library.getAvailableBooks());
+                pbuilder.setResources(this.library.getAvailableResources());
                 pbuilder.setActionMenu(new String[]{
                         "0 - GO BACK",
                         "Please input the number of the book you would like to borrow eg. 1"
@@ -113,10 +113,10 @@ public class StateMachine {
                 break;
             case BOOK_RETURN:
                 pbuilder = new PromptBuilder("Outstanding Loans");
-                BookLoan[] loans = this.library.getOutstandingLoans();
-                Book[] booksOnLoan = Arrays.stream(loans)
-                        .map(loan -> loan.getBook()).toArray(Book[]::new);
-                pbuilder.setBooks(booksOnLoan);
+                Loan[] loans = this.library.getOutstandingLoans();
+                Loanable[] booksOnLoan = Arrays.stream(loans)
+                        .map(loan -> loan.getResource()).toArray(Loanable[]::new);
+                pbuilder.setResources(booksOnLoan);
                 pbuilder.setActionMenu(new String[]{
                         "0 - GO BACK",
                         "Please input the number of the book you would like to return eg. 1"
