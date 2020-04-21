@@ -28,6 +28,7 @@ public class Library implements Serializable {
     public Loan checkoutResource(Loanable resource) {
         if (resource.isAvailable()) {
             Loan loan = new Loan(resource);
+            loan.borrowResource();
             this.loans.add(loan);
             System.out.println(Messages.BOOK_CHECKOUT_SUCCESS.getMessage());
             return loan;

@@ -10,7 +10,6 @@ public class Loan implements Serializable {
 
     public Loan(Loanable resourceLoaned) {
         this.resource = resourceLoaned;
-        this.resource.decrementCopiesAvailable();
         this.dateBorrowed = LocalDate.now();
     }
 
@@ -20,6 +19,10 @@ public class Loan implements Serializable {
 
     public Loanable getResource() {
         return this.resource;
+    }
+
+    public void borrowResource() {
+        this.resource.decrementCopiesAvailable();
     }
 
     public void returnResource() {
