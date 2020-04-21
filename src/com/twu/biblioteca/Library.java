@@ -67,4 +67,45 @@ public class Library implements Serializable {
         }
         return null;
     }
+
+    public Loan[] getOutstandingLoansByLibraryID(String libraryID) {
+        return this.loans.stream()
+                .filter(loan -> loan.isOutstanding() && loan.getLibraryID().equals(libraryID))
+                .toArray(Loan[]::new);
+    }
+
+    public Loan userCheckout(Loanable resource, User user) {
+        if (resource.isAvailable()) {
+            if (user != null) {
+                Loan loan = new Loan(resource);
+                loan.borrowResource();
+                loan.setLibraryID(user.getLibraryID());
+                this.loans.add(loan);
+                System.out.println(Messages.BOOK_CHECKOUT_SUCCESS.getMessage());
+                return loan;
+            }
+            else {
+                System.out.println(Messages.UNAUTHORIZED.getMessage());
+                throw new UnauthorizedException();
+            }
+        } else {
+            System.out.println(Messages.BOOK_CHECKOUT_FAIL.getMessage());
+            throw new IllegalResourceCheckoutException();
+        }
+    }
+
+    public void userReturn(Loan loan, User user) {
+        if (user != null) {
+            if (loan.isOutstanding() && loan.getLibraryID().equals(user.getLibraryID())) {
+                loan.returnResource();
+                System.out.println(Messages.BOOK_RETURN_SUCCESS.getMessage());
+            } else {
+                System.out.println(Messages.BOOK_RETURN_FAIL.getMessage());
+                throw new IllegalResourceReturnException();
+            }
+        } else {
+            System.out.println(Messages.UNAUTHORIZED.getMessage());
+            throw new UnauthorizedException();
+        }
+    }
 }

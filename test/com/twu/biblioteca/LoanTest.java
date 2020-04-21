@@ -8,13 +8,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-
 public class LoanTest {
     private Book book;
     private Movie movie;
     private Loan loan;
     private Loan movieLoan;
-
 
     @Nested
     class BookLoan {
@@ -22,7 +20,12 @@ public class LoanTest {
         void setUp() {
             book = new Book("TDD for Dummies", "TWU", 2000, 1, 1);
             loan = new Loan(book);
+        }
 
+        @Test
+        void shouldGetAndSetLibraryID() {
+            loan.setLibraryID("123-45678");
+            assertEquals("123-45678", loan.getLibraryID());
         }
 
         @Test
@@ -71,6 +74,12 @@ public class LoanTest {
         void setUp() {
             movie = new Movie("Harry Potty and The Travelling Bat", 2020, "Steven Eysberg", 4, 5, 5);
             movieLoan = new Loan(movie);
+        }
+
+        @Test
+        void shouldGetAndSetLibraryID() {
+            movieLoan.setLibraryID("123-45678");
+            assertEquals("123-45678", movieLoan.getLibraryID());
         }
 
         @Test

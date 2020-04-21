@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Nested;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,40 +28,6 @@ public class LibraryTest {
     }
 
     @Test
-    public void shouldGetListOfOutstandingLoans() {
-        assertEquals(0, library.getOutstandingLoans().length);
-    }
-
-    @Test
-    public void shouldCreateBookLoanWhenCheckingOutBook() {
-        Loan loan = library.checkoutResource(book);
-        assertArrayEquals(new Loan[]{loan}, library.getOutstandingLoans());
-    }
-
-    @Test
-    public void shouldThrowErrorWhenCheckingOutUnavailableBook() {
-        assertThrows(IllegalResourceCheckoutException.class, () -> {
-            library.checkoutResource(book3);
-        });
-    }
-
-    @Test
-    public void shouldRemoveBookFromOutstandingLoansAfterReturningBook() {
-        Loan loan = library.checkoutResource(book);
-        library.returnLoan(loan);
-        assertEquals(0, library.getOutstandingLoans().length);
-    }
-
-    @Test
-    public void shouldThrowErrorWhenReturningInvalidBook() {
-        assertThrows(IllegalResourceReturnException.class, () -> {
-            Loan loan = library.checkoutResource(book);
-            library.returnLoan(loan);
-            library.returnLoan(loan);
-        });
-    }
-
-    @Test
     void shouldReturnBookGivenBookTitle() {
         assertEquals(book, library.getAvailableResourceByTitle("TDD for Dummies"));
     }
@@ -80,4 +47,94 @@ public class LibraryTest {
     void shouldReturnNullLoanGivenInvalidBookTitle() {
         assertNull(library.getOutstandingLoanByTitle("TDD for Dummies"));
     }
+
+    @Nested
+    class WithAnonymousUser {
+        @Test
+        public void shouldGetListOfOutstandingLoans() {
+            assertEquals(0, library.getOutstandingLoans().length);
+        }
+
+        @Test
+        public void shouldCreateBookLoanWhenCheckingOutBook() {
+            Loan loan = library.checkoutResource(book);
+            assertArrayEquals(new Loan[]{loan}, library.getOutstandingLoans());
+        }
+
+        @Test
+        public void shouldThrowErrorWhenCheckingOutUnavailableBook() {
+            assertThrows(IllegalResourceCheckoutException.class, () -> {
+                library.checkoutResource(book3);
+            });
+        }
+
+        @Test
+        public void shouldRemoveBookFromOutstandingLoansAfterReturningBook() {
+            Loan loan = library.checkoutResource(book);
+            library.returnLoan(loan);
+            assertEquals(0, library.getOutstandingLoans().length);
+        }
+
+        @Test
+        public void shouldThrowErrorWhenReturningInvalidBook() {
+            assertThrows(IllegalResourceReturnException.class, () -> {
+                Loan loan = library.checkoutResource(book);
+                library.returnLoan(loan);
+                library.returnLoan(loan);
+            });
+        }
+    }
+
+    @Nested
+    class WithUser {
+        private User user;
+
+        @BeforeEach
+        void setUp() {
+            user = Factory.createUsers()[0];
+        }
+
+        @Test
+        void shouldGetOutstandingLoansByLibraryID() {
+            assertEquals(0, library.getOutstandingLoansByLibraryID(user.getLibraryID()).length);
+        }
+
+        @Test
+        void shouldCreateBookLoanWhenUserChecksOutBook() {
+            Loan loan = library.userCheckout(book, user);
+            assertArrayEquals(new Loan[]{loan}, library.getOutstandingLoansByLibraryID(user.getLibraryID()));
+        }
+
+        @Test
+        void shouldThrowUnauthorizedErrorWhenCheckingOutGivenUserNotLoggedIn() {
+            assertThrows(UnauthorizedException.class, () -> {
+                library.userCheckout(book, null);
+            });
+        }
+
+        @Test
+        void shouldRemoveBookLoanFromOutstandingWhenUserReturnsBook() {
+            Loan loan = library.userCheckout(book, user);
+            library.userReturn(loan, user);
+            assertEquals(0, library.getOutstandingLoansByLibraryID(user.getLibraryID()).length);
+        }
+
+        @Test
+        void shouldThrowUnAuthorizedErrorWhenReturningBookGivenUserNotLoggedIn() {
+            Loan loan = library.userCheckout(book, user);
+            assertThrows(UnauthorizedException.class, () -> {
+                library.userReturn(loan, null);
+            });
+        }
+
+        @Test
+        void shouldThrowIllegalBookReturnErrorWhenReturningLoanThatIsNotYours() {
+            Loan loan = library.userCheckout(book, user);
+            User user2 = Factory.createUsers()[1];
+            assertThrows(IllegalResourceReturnException.class, () -> {
+                library.userReturn(loan, user2);
+            });
+        }
+    }
+
 }

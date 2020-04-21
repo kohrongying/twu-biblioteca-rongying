@@ -7,6 +7,7 @@ public class Loan implements Serializable {
     private Loanable resource;
     private LocalDate dateBorrowed;
     private LocalDate dateReturned;
+    private String libraryID;
 
     public Loan(Loanable resourceLoaned) {
         this.resource = resourceLoaned;
@@ -35,5 +36,13 @@ public class Loan implements Serializable {
             return true;
         }
         return false;
+    }
+
+    public String getLibraryID() {
+        return this.libraryID;
+    }
+
+    public void setLibraryID(String libraryID) {
+        this.libraryID = libraryID;
     }
 }
