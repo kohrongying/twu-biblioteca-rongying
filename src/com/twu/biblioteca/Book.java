@@ -2,7 +2,7 @@ package com.twu.biblioteca;
 
 import java.io.Serializable;
 
-public class Book extends Resource implements Serializable {
+public class Book extends Resource implements Serializable, Loanable {
     private String bookTitle;
     private String authorName;
     private int yearPublished;
@@ -14,7 +14,7 @@ public class Book extends Resource implements Serializable {
         this.yearPublished = yearPublished;
     }
 
-    public String getBookTitle() {
+    public String getTitle() {
         return this.bookTitle;
     }
 

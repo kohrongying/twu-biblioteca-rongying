@@ -1,6 +1,6 @@
 package com.twu.biblioteca;
 
-public class Movie extends Resource {
+public class Movie extends Resource implements Loanable {
     private String title;
     private int yearReleased;
     private String directedBy;
@@ -23,5 +23,9 @@ public class Movie extends Resource {
                 + String.format("%-" + 9 + "s", this.yearReleased)
                 + String.format("%-" + 5 + "s", rating)
                 + status;
+    }
+
+    public String getTitle() {
+        return this.title;
     }
 }

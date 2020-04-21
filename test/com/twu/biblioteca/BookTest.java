@@ -27,7 +27,7 @@ public class BookTest {
 
     @Test
     public void shouldGetBookTitle() {
-        assertEquals("TDD for Dummies", book.getBookTitle());
+        assertEquals("TDD for Dummies", book.getTitle());
     }
 
     @Test
