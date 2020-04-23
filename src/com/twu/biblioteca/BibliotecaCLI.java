@@ -60,7 +60,7 @@ public class BibliotecaCLI {
                     library.checkoutResource(book);
                     writeObject();
                 } else {
-                    System.out.println(Messages.BOOK_CHECKOUT_FAIL.getMessage());
+                    System.out.println(Messages.RESOURCE_CHECKOUT_FAIL.getMessage());
                 }
             }
             // Return book
@@ -71,7 +71,7 @@ public class BibliotecaCLI {
                     library.returnLoan(loan);
                     writeObject();
                 } else {
-                    System.out.println(Messages.BOOK_RETURN_FAIL.getMessage());
+                    System.out.println(Messages.RESOURCE_RETURN_FAIL.getMessage());
                 }
             }
             // Help

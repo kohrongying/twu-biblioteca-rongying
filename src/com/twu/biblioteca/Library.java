@@ -30,10 +30,10 @@ public class Library implements Serializable {
             Loan loan = new Loan(resource);
             loan.borrowResource();
             this.loans.add(loan);
-            System.out.println(Messages.BOOK_CHECKOUT_SUCCESS.getMessage());
+            System.out.println(Messages.RESOURCE_CHECKOUT_SUCCESS.getMessage());
             return loan;
         } else {
-            System.out.println(Messages.BOOK_CHECKOUT_FAIL.getMessage());
+            System.out.println(Messages.RESOURCE_CHECKOUT_FAIL.getMessage());
             throw new IllegalResourceCheckoutException();
         }
     }
@@ -41,9 +41,9 @@ public class Library implements Serializable {
     public void returnLoan(Loan loan) {
         if (loan.isOutstanding()) {
             loan.returnResource();
-            System.out.println(Messages.BOOK_RETURN_SUCCESS.getMessage());
+            System.out.println(Messages.RESOURCE_RETURN_SUCCESS.getMessage());
         } else {
-            System.out.println(Messages.BOOK_RETURN_FAIL.getMessage());
+            System.out.println(Messages.RESOURCE_RETURN_FAIL.getMessage());
             throw new IllegalResourceReturnException();
         }
     }
@@ -81,7 +81,7 @@ public class Library implements Serializable {
                 loan.borrowResource();
                 loan.setLibraryID(user.getLibraryID());
                 this.loans.add(loan);
-                System.out.println(Messages.BOOK_CHECKOUT_SUCCESS.getMessage());
+                System.out.println(Messages.RESOURCE_CHECKOUT_SUCCESS.getMessage());
                 return loan;
             }
             else {
@@ -89,7 +89,7 @@ public class Library implements Serializable {
                 throw new UnauthorizedException();
             }
         } else {
-            System.out.println(Messages.BOOK_CHECKOUT_FAIL.getMessage());
+            System.out.println(Messages.RESOURCE_CHECKOUT_FAIL.getMessage());
             throw new IllegalResourceCheckoutException();
         }
     }
@@ -98,9 +98,9 @@ public class Library implements Serializable {
         if (user != null) {
             if (loan.isOutstanding() && loan.getLibraryID().equals(user.getLibraryID())) {
                 loan.returnResource();
-                System.out.println(Messages.BOOK_RETURN_SUCCESS.getMessage());
+                System.out.println(Messages.RESOURCE_RETURN_SUCCESS.getMessage());
             } else {
-                System.out.println(Messages.BOOK_RETURN_FAIL.getMessage());
+                System.out.println(Messages.RESOURCE_RETURN_FAIL.getMessage());
                 throw new IllegalResourceReturnException();
             }
         } else {
