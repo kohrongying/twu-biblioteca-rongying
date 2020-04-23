@@ -23,7 +23,7 @@ public class PromptBuilder {
             strBuilder.append(this.buildActionMenu());
         }
 
-        strBuilder.append("\nPlease input option number: ");
+        strBuilder.append("\nYour input: ");
 
         return strBuilder.toString();
     }

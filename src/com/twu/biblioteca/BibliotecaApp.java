@@ -7,7 +7,10 @@ public class BibliotecaApp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Library library = Factory.createBookLibrary();
-        StateMachine fsm = new StateMachine(library);
+        Library movieLibrary = Factory.createMovieLibrary();
+        User[] users = Factory.createUsers();
+
+        StateMachine fsm = new StateMachine(library, movieLibrary, users);
 
         System.out.println(Messages.WELCOME.getMessage());
         System.out.println("You may type q or quit to quit the application at any time");
@@ -18,13 +21,8 @@ public class BibliotecaApp {
             if (userInput.equals("q") || userInput.equals("quit")) {
                 break;
             } else {
-                try {
-                    int userInt = Integer.parseInt(userInput);
-                    fsm.nextState(userInt);
-                    fsm.getNextPrompt();
-                } catch (NumberFormatException e) {
-                    continue;
-                }
+                fsm.nextState(userInput);
+                fsm.getNextPrompt();
             }
         }
 

@@ -5,14 +5,14 @@ public class Factory {
     public static Library createBookLibrary() {
         Book book = new Book("TDD for Dummies", "TWU", 2000, 1, 1);
         Book book2 = new Book("The Agile Brown Fox Jumped Over the Waterfall", "Marty Howler", 2010, 1, 1);
-        Book book3 = new Book("Pear Programming", "Fruity Peeler", 2012, 1, 0);
+        Book book3 = new Book("Pear Programming", "Fruity Peeler", 2012, 1, 1);
         Book[] books = new Book[]{book, book2, book3};
         return new Library(books);
     }
 
     public static Library createMovieLibrary() {
         Movie movie = new Movie("Harry Potty and The Travelling Bat", 2020, "Steven Eysberg", 4, 5, 5);
-        Movie movie2 = new Movie("Captain Singapore and the Lightning Thief", 2009, "Lee Kuching", 0, 1, 1);
+        Movie movie2 = new Movie("Captain Singapore and the Virus", 2009, "Lee Kuching", 0, 1, 1);
         Movie movie3 = new Movie("MAWA Man Fights Back", 2020, "Band of Doodlers", 8, 1, 1);
         Movie[] movies = new Movie[]{movie, movie2, movie3};
         return new Library(movies);

@@ -17,7 +17,7 @@ public class Movie extends Resource implements Loanable {
     @Override
     public String toString() {
         String status = this.isAvailable() ? "Available" : "On Loan";
-        String rating = this.movieRating == 0 ? "Unrated" : Integer.toString(this.movieRating);
+        String rating = this.movieRating == 0 ? "-" : Integer.toString(this.movieRating);
         return String.format("%-" + 40 + "s", this.title)
                 + String.format("%-" + 20 + "s", this.directedBy)
                 + String.format("%-" + 9 + "s", this.yearReleased)
