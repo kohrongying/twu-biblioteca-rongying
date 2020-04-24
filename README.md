@@ -27,4 +27,12 @@ Under Run, click on `Edit Configurations` and choose scenario to run in
 
 
 ## Release 2
-A console application run in the terminal that responds given user input. The program will show a menu, a list of available books and outstanding loans and display actions accordingly. Press q or quit at any point to exit.
+A console application run in the terminal that responds given user input. Only logged in users can proceed. The program will show a menu, a list of available books, movies, user information. Upon clicking into the list of books and movies, user can choose to checkout a resource or view outstanding loans and display actions accordingly. 
+ 
+ ### For Authentication
+- LibraryID: `123-456789`
+- Password: `password`
+
+
+### How to quit application
+Press q or quit at any point to exit.
